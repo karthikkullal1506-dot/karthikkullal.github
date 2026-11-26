@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaam Match – Local Jobs for Daily Wage Workers</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Kaam Match home">
+      <span class="brand-mark" aria-hidden="true">K</span>
+      <span>kaam<span class="brand-highlight">match</span></span>
+    </a>
+    <div class="hero-copy">
+      <span class="eyebrow">Good work. Close to home.</span>
+      <h1>Local work, made simple.</h1>
+      <p>Find daily work near you, or find the right worker for your job. Free, direct, and with no middleman.</p>
+    </div>
+    <nav role="tablist" aria-label="Choose what you need">
+      <button role="tab" data-tab="find" aria-selected="true">Find work</button>
+      <button role="tab" data-tab="register" aria-selected="false">Register as worker</button>
+      <button role="tab" data-tab="post" aria-selected="false">Post a job</button>
+      <button role="tab" data-tab="workers" aria-selected="false">Find workers</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- FIND WORK -->
+  <section id="find" class="on">
+    <span class="section-kicker">Your next opportunity</span>
+    <h2>Jobs near you</h2>
+    <p class="sub">Choose your skill and town. Best matches come first.</p>
+    <div class="filters">
+      <label>Your skill <select id="fSkill"></select></label>
+      <label>Your town / village <input id="fTown" placeholder="e.g. Puttur"></label>
+    </div>
+    <div id="jobList" class="list"></div>
+  </section>
+
+  <!-- REGISTER -->
+  <section id="register">
+    <span class="section-kicker">Get discovered</span>
+    <h2>Register or update your profile</h2>
+    <p class="sub">Save again with the same phone number to update your worker profile anytime.</p>
+    <form id="workerForm">
+      <label>Full name <input name="name" required maxlength="50"></label>
+      <label>Phone number <input name="phone" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric" placeholder="10 digits"></label>
+      <label>Town / village <input name="town" required maxlength="40"></label>
+      <label>Available from (within 30 days) <input name="availability_date" type="date" required></label>
+      <label>Daily wage you expect (₹) <input name="wage" type="number" min="100" max="5000" required></label>
+      <fieldset><legend>Your skills (choose all that apply)</legend><div class="chips" id="workerSkills"></div></fieldset>
+      <button class="btn" type="submit">Save or update profile</button>
+    </form>
+    <div class="danger-zone">
+      <h3>Delete worker profile</h3>
+      <p>Remove your profile from worker search. We’ll send a one-time code to the phone number on your profile to confirm.</p>
+      <form id="deleteWorkerPhoneForm">
+        <label>Phone number on your profile
+          <input name="phone" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric" autocomplete="tel" placeholder="10 digits">
+        </label>
+        <button class="btn" type="submit">Send verification code</button>
+      </form>
+      <form id="deleteWorkerOtpForm" hidden>
+        <label>Verification code
+          <input name="code" required maxlength="10" pattern="[0-9]{4,10}" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the code from SMS">
+        </label>
+        <button class="btn" type="submit">Verify &amp; delete profile</button>
+        <button class="btn secondary-btn" id="resendDeleteCode" type="button">Send code again</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- POST JOB -->
+  <section id="post">
+    <span class="section-kicker">Hire locally</span>
+    <h2>Post a job</h2>
+    <p class="sub">Tell workers what you need. They will call you directly.</p>
+    <form id="jobForm">
+      <label>Job title <input name="title" required maxlength="60" placeholder="e.g. Need 2 painters for house"></label>
+      <label>Skill needed <select name="skill" id="jobSkill" required></select></label>
+      <label>Town / village <input name="town" required maxlength="40"></label>
+      <label>Daily wage offered (₹) <input name="wage" type="number" min="100" max="5000" required></label>
+      <label>Job date (within 30 days) <input name="job_date" type="date" required></label>
+      <label>Your name <input name="owner" required maxlength="50"></label>
+      <label>Your phone <input name="phone" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric" placeholder="10 digits"></label>
+      <button class="btn" type="submit">Publish job</button>
+    </form>
+  </section>
+
+  <!-- FIND WORKERS -->
+  <section id="workers">
+    <span class="section-kicker">People ready to work</span>
+    <h2>Find workers</h2>
+    <p class="sub">Pick a skill and town, then choose a day to shortlist workers available by then.</p>
+    <div class="filters">
+      <label>Skill needed <select id="wSkill"></select></label>
+      <label>Town / village <input id="wTown" placeholder="e.g. Puttur"></label>
+      <label>Shortlist for day <input id="wDate" type="date"></label>
+    </div>
+    <div id="workerList" class="list"></div>
+  </section>
+</main>
+<footer>Kaam Match <span aria-hidden="true">·</span> Free local work for daily wage workers</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
