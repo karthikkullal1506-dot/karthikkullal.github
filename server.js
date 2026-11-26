@@ -277,6 +277,5 @@ app.post("/api/workers/delete/confirm", async (req, res) => {
     res.status(502).json({ error: "Could not verify the code. Please try again." });
   }
 });
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Kaam Match running on http://localhost:" + PORT));
+app.listen(PORT);
