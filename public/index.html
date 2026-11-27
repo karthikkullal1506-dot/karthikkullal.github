@@ -55,19 +55,19 @@
       <button class="btn" type="submit">Save or update profile</button>
     </form>
     <div class="danger-zone">
-      <h3>Delete worker profile</h3>
-      <p>Remove your profile from worker search. We’ll send a one-time code to the phone number on your profile to confirm.</p>
+      <h3>Delete my profile</h3>
+      <p>Remove your profile from worker search. We’ll send a one-time code to your phone number to confirm.</p>
       <form id="deleteWorkerPhoneForm">
         <label>Phone number on your profile
           <input name="phone" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric" autocomplete="tel" placeholder="10 digits">
         </label>
-        <button class="btn" type="submit">Send verification code</button>
+        <button class="btn" type="submit">Send code</button>
       </form>
       <form id="deleteWorkerOtpForm" hidden>
         <label>Verification code
           <input name="code" required maxlength="10" pattern="[0-9]{4,10}" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the code from SMS">
         </label>
-        <button class="btn" type="submit">Verify &amp; delete profile</button>
+        <button class="btn" type="submit">Confirm delete</button>
         <button class="btn secondary-btn" id="resendDeleteCode" type="button">Send code again</button>
       </form>
     </div>

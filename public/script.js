@@ -141,7 +141,7 @@ deleteWorkerOtpForm.addEventListener("submit",async e=>{
     deleteWorkerOtpForm.hidden=true;
     deleteWorkerPhoneForm.hidden=false;
     pendingDeletePhone="";
-    renderWorkers();
+    await renderWorkers();
     toast("Worker profile deleted");
   }catch(err){toast(err.message)}
 });

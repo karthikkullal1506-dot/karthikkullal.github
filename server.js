@@ -182,6 +182,10 @@ function twilioVerifyConfigured() {
   );
 }
 
+if (!twilioVerifyConfigured()) {
+  console.error("Twilio Verify is not configured; worker SMS deletion requests will return HTTP 503.");
+}
+
 async function callTwilioVerify(endpoint, fields) {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -205,7 +209,7 @@ app.post("/api/workers/delete/request", async (req, res) => {
   const phoneNumber = phone(req.body && req.body.phone);
   if (!phoneNumber) return res.status(400).json({ error: "Enter a valid 10-digit phone number." });
   if (!twilioVerifyConfigured()) {
-    return res.status(503).json({ error: "Profile deletion is temporarily unavailable. Please try again later." });
+    return res.status(503).json({ error: "SMS verification is not configured. Please contact the website administrator." });
   }
   if (deletionOtpLimited(req, phoneNumber, "request")) {
     return res.status(429).json({ error: "Too many code requests. Please try again later." });
@@ -242,7 +246,7 @@ app.post("/api/workers/delete/confirm", async (req, res) => {
     return res.status(400).json({ error: "Enter a valid phone number and verification code." });
   }
   if (!twilioVerifyConfigured()) {
-    return res.status(503).json({ error: "Profile deletion is temporarily unavailable. Please try again later." });
+    return res.status(503).json({ error: "SMS verification is not configured. Please contact the website administrator." });
   }
   if (deletionOtpLimited(req, phoneNumber, "confirm")) {
     return res.status(429).json({ error: "Too many verification attempts. Please try again later." });
@@ -278,4 +282,6 @@ app.post("/api/workers/delete/confirm", async (req, res) => {
   }
 });
 const PORT = process.env.PORT || 3000;
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Kaam Match is running at http://localhost:${PORT}`);
+});
